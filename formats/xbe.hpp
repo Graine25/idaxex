@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
+#include <cstdio>
 
 #include "xbe_keys.hpp"
 #include "xbe_structs.hpp"
@@ -64,7 +65,7 @@ public:
 #ifdef _MSC_VER
     read = (read_fn)fread; seek = (seek_fn)_fseeki64; tell = (tell_fn)_ftelli64; dbgmsg = stdio_msg;
 #else
-    read = (read_fn)fread; seek = (seek_fn)fseeko64; tell = (tell_fn)ftello64; dbgmsg = stdio_msg;
+    read = (read_fn)fread; seek = (seek_fn)fseeko; tell = (tell_fn)ftello; dbgmsg = stdio_msg;
 #endif
 #endif
   }
