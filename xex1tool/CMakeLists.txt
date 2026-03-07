@@ -5,9 +5,8 @@ project(xex1tool)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Enable AES NI intrinsic
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -maes")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -maes")
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
 
 add_executable(xex1tool
   ../xex1tool.cpp
@@ -29,3 +28,14 @@ add_executable(xex1tool
 )
 
 target_include_directories(xex1tool PRIVATE ${PROJECT_SOURCE_DIR}/../3rdparty/excrypt/src)
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64|AMD64|i[3-6]86|x86)$")
+  check_c_compiler_flag("-maes" XEX1TOOL_C_HAS_MAES)
+  check_cxx_compiler_flag("-maes" XEX1TOOL_CXX_HAS_MAES)
+  if(XEX1TOOL_C_HAS_MAES AND XEX1TOOL_CXX_HAS_MAES)
+    target_compile_options(xex1tool PRIVATE
+      $<$<COMPILE_LANGUAGE:C>:-maes>
+      $<$<COMPILE_LANGUAGE:CXX>:-maes>
+    )
+  endif()
+endif()

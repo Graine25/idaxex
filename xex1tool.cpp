@@ -878,6 +878,7 @@ int main(int argc, char* argv[])
 {
   cxxopts::Options options("xex1tool");
   options.add_options()
+    ("h,help", "Show help")
     ("l,listing", "Print executable info")
     ("m,listmem", "Print executable info & memory pages")
     ("i,imports", "Print import libraries & functions")
@@ -894,6 +895,12 @@ int main(int argc, char* argv[])
   printf("xex1tool  -  emoose\n");
 
   auto result = options.parse(argc, argv);
+
+  if (result.count("help"))
+  {
+    printf("%s", options.help().c_str());
+    return 0;
+  }
 
   if (!result.count("positional"))
   {

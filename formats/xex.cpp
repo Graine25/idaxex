@@ -423,7 +423,7 @@ bool XEXFile::read_imports(void* file)
         *(uint32_t*)(pe_data() + record_offset + 4) = xe::byte_swap(0x38800000 | ordinal);
       }
       else // todo: does this ever appear?
-        dbgmsg("[+] %s import %d (@ 0x%X) unknown type %d!\n", libname.c_str(), ordinal, record_addr, record_type);
+        dbgmsg("[+] %s import %d (@ 0x%X) unknown type %d!\n", libname.c_str(), ordinal, uint32_t(record_addr), record_type);
 
       imports_[libname][ordinal] = imp;
     }
@@ -466,7 +466,7 @@ bool XEXFile::read_imports(void* file)
       // Sanity check the callcap info, values from first dword should match values in second
       if (ordinal_1 != ordinal_2 || moduleidx_1 != moduleidx_2)
       {
-        dbgmsg("[!] Invalid callcap at 0x%X? (%X %X %X %X)\n", addr, ordinal_1, ordinal_2, moduleidx_1, moduleidx_2);
+        dbgmsg("[!] Invalid callcap at 0x%X? (%X %X %X %X)\n", uint32_t(addr), uint32_t(ordinal_1), uint32_t(ordinal_2), uint32_t(moduleidx_1), uint32_t(moduleidx_2));
         continue;
       }
 
@@ -516,7 +516,7 @@ bool XEXFile::read_exports(void* file)
     export_table.Magic[1] != XEX_HV_MAGIC_HVE ||
     export_table.Magic[2] != XEX_HV_MAGIC_2)
   {
-    dbgmsg("[+] Export table magic is invalid! (0x%X 0x%X 0x%X)\n", export_table.Magic[0], export_table.Magic[1], export_table.Magic[2]);
+    dbgmsg("[+] Export table magic is invalid! (0x%X 0x%X 0x%X)\n", uint32_t(export_table.Magic[0]), uint32_t(export_table.Magic[1]), uint32_t(export_table.Magic[2]));
     return false;
   }
 
