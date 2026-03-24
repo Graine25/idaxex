@@ -50,7 +50,7 @@ Clone the repo into your idasdk\ldr\ folder and then build idaxex.sln with VS202
 **Linux**
 
 - Setup [ida-cmake](https://github.com/allthingsida/ida-cmake) in your idasdk folder
-- Make sure IDASDK env var points to your idasdk folder
+- Make sure the `IDASDK` env var points to your IDA SDK root. In this repo's vendored SDK layout, that is `ida-sdk-9.3/src`
 - Clone idaxex repo
 - Run `cmake . -DEA64=YES` inside idaxex folder
 - Run `make`
@@ -63,7 +63,7 @@ On newest IDA you may need to edit ida-cmake common.cmake and change `libida64.s
 - `xex1tool` builds natively with CMake on both Intel and Apple Silicon Macs
 - From the repo root, run `cmake -S . -B build` and then `cmake --build build -j`
 - The standalone binary will be available at `build/xex1tool/xex1tool`
-- If `IDASDK` is not set, the root CMake build will skip the IDA plugin target and still build `xex1tool`
+- If `IDASDK` is not set and `ida-sdk-9.3/src` exists in the repo, the root CMake build will use that path automatically
 - To see usage, run `./build/xex1tool/xex1tool --help`
 - Building the IDA loader plugin on macOS still requires a valid IDA SDK checkout with `ida-cmake`
 
